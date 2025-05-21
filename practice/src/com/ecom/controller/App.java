@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.ecom.model.Customer;
 import com.ecom.model.Product;
+
 import com.ecom.dao.service.ProductService;
 import com.ecom.dao.service.PurchaseService;
 import com.ecom.exception.InvalidIdException;
@@ -11,21 +12,24 @@ import com.ecom.exception.InvalidInputException;
 
 public class App {
     public static void main(String[] args) {
+    	
         Scanner scanner = new Scanner(System.in);
+        
+        
         ProductService productService = new ProductService();
         PurchaseService purchaseService = new PurchaseService();
         
         while (true) {
-            System.out.println("******************** MAIN MENU ****************");
+            System.out.println("***********MAIN MENU *********");
             System.out.println("1. Add Product");
             System.out.println("2. Get Products by Category");
             System.out.println("3. Add Purchase Details");
             System.out.println("0. Exit");
-            System.out.println("***********************************************");
+            System.out.println("*******************************");
             System.out.print("Enter your choice: ");
             
             int choice = scanner.nextInt();
-            scanner.nextLine();  // Consume newline
+            scanner.nextLine();  
             
             if (choice == 0) {
                 System.out.println("Exiting... Thank you!");
@@ -63,7 +67,9 @@ public class App {
                     scanner.nextLine();
                     try {
                         productService.getByCategoryId(catId)
-                            .forEach(p -> System.out.println(p.getId() + "\t" + p.getTitle() + "\t" + p.getPrice() + "\t" + p.getDescription() + "\t" + p.getCategory().getName()));
+                            .forEach(p -> System.out.println(p.getId() + "\t" + p.getTitle() + 
+                            		"\t" + p.getPrice() + "\t" + p.getDescription() + 
+                            		"\t" + p.getCategory().getName()));
                     } catch (InvalidIdException e) {
                         System.out.println("Error: " + e.getMessage());
                     }
@@ -78,7 +84,7 @@ public class App {
                     scanner.nextLine();
                     
                     try {
-                        purchaseService.insert(customerId, productId, scanner);
+                        purchaseService.Purchase(customerId, productId, scanner);
                         System.out.println("Purchase details added successfully.");
                     } catch (InvalidIdException e) {
                         System.out.println("Error: " + e.getMessage());

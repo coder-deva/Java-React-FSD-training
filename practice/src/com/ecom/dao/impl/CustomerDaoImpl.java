@@ -17,7 +17,7 @@ public class CustomerDaoImpl implements CustomerDao {
     public Customer getById(int id) throws InvalidIdException {
     	
         Connection con = db.connect();
-        String sql = "SELECT * FROM customer WHERE id = ?";
+        String sql = "select * from customer where id = ?";
         
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setInt(1, id);

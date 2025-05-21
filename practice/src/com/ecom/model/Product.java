@@ -50,6 +50,8 @@ public class Product {
 		this.description = description;
 	}
 
+	
+
 	public Category getCategory() {
 		return category;
 	}
