@@ -65,7 +65,7 @@ function UserList() {
                 >
                   Delete
                 </button>
-                <button type="button" className="btn btn-primary">
+                <button type="button" className="btn btn-primary" onClick={() => navigate(`/edit-user/${u.id}`)} >
                   Edit
                 </button>
               </td>

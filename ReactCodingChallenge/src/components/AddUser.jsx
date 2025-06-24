@@ -10,20 +10,33 @@ function AddUser() {
   const [status, setStatus] = useState("");
   const [msg, setMsg] = useState("");
 
-  const addPost = async () => {
+  const addUser = async () => {
     try {
-      await axios.post("https://gorest.co.in/public/v2/users", {
-        Name: name,
-        Email: email,
-        Gender: gender,
-        Status: status,
-      },
-    {
-        headers:{Authorization:'Bearer 1d79d4c82a4f31effff0eceace06ff7481b08b79c1abcddf463a282f3da8eef9'}
-    });
-      setMsg("posted successfully");
+      await axios.post(
+        "https://gorest.co.in/public/v2/users",
+        {
+          name: name,
+          email: email,
+          gender: gender,
+          status: status,
+        },
+        {
+          headers: {
+            Authorization:
+              "Bearer 1d79d4c82a4f31effff0eceace06ff7481b08b79c1abcddf463a282f3da8eef9",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setMsg("User Added successfully");
+
+      setName("");
+      setEmail("");
+      setGender("");
+      setStatus("");
     } catch (error) {
       console.log(error);
+      setMsg("failed to add user");
     }
   };
 
@@ -33,39 +46,60 @@ function AddUser() {
       <div className="container">
         <div className="row">
           <div className="col-md-6">
-            <div className="card mt-5  ">
-              <div className="card-header">enter The Details</div>
+            <div className="card mt-5">
+              <div className="card-header">Enter The Details</div>
               <div className="card-body">
-                {msg != "" ? (
+                {msg !== "" ? (
                   <div className="mb-4">
                     <div className="alert alert-primary">{msg}</div>
                   </div>
                 ) : (
                   ""
                 )}
+
                 <div className="mb-4">
-                  <label> Enter You Name</label>
+                  <label>Enter Your Name</label>
                   <input
                     type="text"
+                    
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
 
                 <div className="mb-4">
-                  <label> Enter You Email</label>
-                  <input type="text" onChange={(e) => setEmail(e.target.value)} />
+                  <label>Enter Your Email</label>
+                  <input
+                    type="text"
+                  
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
+
                 <div className="mb-4">
-                  <label> Enter You Gender</label>
-                  <input type="text" onChange={(e) => setGender(e.target.value)} />
+                  <select
+                    className="form-control"
+                    onChange={(e) => setGender(e.target.value)}
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
                 </div>
+
                 <div className="mb-4">
-                  <label> Enter You Status</label>
-                  <input type="text" onChange={(e) => setStatus(e.target.value)} />
+                  <select
+                    className="form-control"
+                    onChange={(e) => setStatus(e.target.value)}
+                  >
+                    <option value="">Select Status</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                  </select>
                 </div>
               </div>
+
               <div className="card-footer">
-                <button className="btn btn-primary" onClick={() => addPost()}>
+                <button className="btn btn-primary" onClick={addUser}>
                   Add To Post
                 </button>
               </div>
